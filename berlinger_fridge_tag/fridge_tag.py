@@ -7,18 +7,18 @@ from loguru import logger
 def parse_history_line_to_dict(line_content: str) -> Optional[Dict[str, Any]]:
     """
     Parses a single space-delimited temperature history line from Berlinger Fridge-tag data.
-    
+
     Processes daily temperature records with min/max/average values, timestamps, alarms,
     and events into a structured dictionary format.
-    
+
     Expected format: Date MinT TSMinT MaxT TSMaxT AvrgT Alarm_tAcc Alarm_TSA Alarm_CA IST_tAccST Events Chk_TSAM Chk_TSPM
-    
+
     Args:
         line_content (str): Space-delimited history line from Fridge-tag export
-        
+
     Returns:
         Optional[Dict[str, Any]]: Structured dictionary with temperature data, or None if parsing fails
-        
+
     Example:
         >>> line = "2022-10-10 -12.3 08:10 +0.1 10:20 -10.0 10 00:00 --- --- 0 --- ---"
         >>> result = parse_history_line_to_dict(line)
@@ -84,27 +84,27 @@ def parse_history_line_to_dict(line_content: str) -> Optional[Dict[str, Any]]:
 def parse_fridgetag_text_to_raw_dict(file_path: str) -> dict[str, Any]:
     """
     Parses a Berlinger Fridge-tag text file into a raw dictionary structure.
-    
+
     This function processes Berlinger Fridge-tag data export files and converts them into
     a structured dictionary format suitable for validation by Pydantic Input models.
-    
+
     Supports Fridge-tag 2, 2L, and 2E data formats including:
     - Device configuration and settings
     - Temperature history records with min/max/average values
     - Alarm events and thresholds
     - Internal sensor data and calibration info
     - Certificate and authentication data
-    
+
     Args:
         file_path (str): Absolute path to the Berlinger Fridge-tag text file
-        
+
     Returns:
         dict[str, Any]: Raw dictionary structure ready for Pydantic model validation
-        
+
     Raises:
         FileNotFoundError: If the specified file path does not exist
         UnicodeDecodeError: If the file cannot be decoded as UTF-8
-        
+
     Example:
         >>> raw_data = parse_fridgetag_text_to_raw_dict("/path/to/fridgetag_data.txt")
         >>> input_model = QTagDataInput.model_validate(raw_data)

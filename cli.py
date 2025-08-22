@@ -52,9 +52,7 @@ def process_history_items(raw_dict: dict, debug: bool) -> None:
         validated_input_hist_items = []
         for i, hist_item_raw_dict in enumerate(hist_list_from_parser):
             try:
-                hr_input_model = HistoryRecordInput.model_validate(
-                    hist_item_raw_dict
-                )
+                hr_input_model = HistoryRecordInput.model_validate(hist_item_raw_dict)
                 validated_input_hist_items.append(
                     hr_input_model.model_dump(by_alias=True)
                 )
@@ -105,16 +103,16 @@ def parse(
 ) -> None:
     """
     Parse a FridgeTag TXT file and output the structured data.
-    
+
     This command parses a Berlinger FridgeTag TXT file, validates the data
     against Pydantic models, transforms it to the output format, and prints
     the structured data to stdout.
     """
     setup_logging(debug_mode=debug)
-    
+
     # Validate file accessibility
     validate_file_path(file_path)
-    
+
     logger.info(f"Starting parsing for file: {file_path}")
 
     try:

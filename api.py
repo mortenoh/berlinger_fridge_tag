@@ -27,28 +27,30 @@ app = FastAPI(
 def process_file_content(file_content: bytes, debug: bool = False) -> Dict[str, Any]:
     """
     Processes uploaded Berlinger Fridge-tag file content and returns structured temperature data.
-    
+
     Takes raw file bytes, parses the Fridge-tag text format, validates the data using
     Pydantic models, and transforms it into a structured JSON format suitable for
     DHIS2 cold chain monitoring integration.
-    
+
     Args:
         file_content (bytes): Raw bytes from uploaded Fridge-tag text file
         debug (bool): Enable detailed logging for debugging purposes
-        
+
     Returns:
         Dict[str, Any]: Structured temperature monitoring data in camelCase format
-        
+
     Raises:
         ValidationError: If the file content doesn't match expected Fridge-tag format
         Exception: If file processing fails for other reasons
     """
-    with tempfile.NamedTemporaryFile(mode='wb', suffix='.txt', delete=False) as temp_file:
+    with tempfile.NamedTemporaryFile(
+        mode="wb", suffix=".txt", delete=False
+    ) as temp_file:
         temp_file.write(file_content)
         temp_file_path = temp_file.name
 
     try:
-        logger.info(f"Starting parsing for uploaded file")
+        logger.info("Starting parsing for uploaded file")
 
         raw_dict = parse_fridgetag_text_to_raw_dict(temp_file_path)
 
@@ -109,66 +111,70 @@ def process_file_content(file_content: bytes, debug: bool = False) -> Dict[str, 
 async def parse_fridgetag_file(file: UploadFile = File(...), debug: bool = False):
     """
     Upload and parse a Berlinger Fridge-tag temperature monitoring data file.
-    
+
     Accepts a Fridge-tag export file and processes it into structured JSON format
     suitable for integration with DHIS2 cold chain monitoring systems.
-    
+
     Supported Fridge-tag models:
     - Fridge-tag 2: Ambient temperature monitoring with immediate alerts
     - Fridge-tag 2L: High precision data logger (3-year battery life)
     - Fridge-tag 2E: 30-day electronic temperature recorder for vaccines
-    
+
     Args:
         file: Uploaded Fridge-tag text file
         debug: Enable detailed validation logging and error reporting
-        
+
     Returns:
-        JSONResponse: Structured temperature data with device info, history records, 
+        JSONResponse: Structured temperature data with device info, history records,
                      alarm events, and configuration details
-        
+
     Raises:
         HTTPException 422: If file content doesn't match expected format
         HTTPException 422: If file content fails validation
         HTTPException 500: If unexpected processing error occurs
     """
-    
+
     try:
         file_content = await file.read()
         result = process_file_content(file_content, debug=debug)
-        
-        return JSONResponse(content={
-            "success": True,
-            "filename": file.filename,
-            "data": result
-        })
-        
+
+        return JSONResponse(
+            content={"success": True, "filename": file.filename, "data": result}
+        )
+
     except ValidationError as e:
         error_details = []
         for error_detail in e.errors():
-            error_details.append({
-                "field": '.'.join(map(str, error_detail['loc'])) if error_detail['loc'] else 'General',
-                "message": error_detail['msg'],
-                "input": str(error_detail['input'])
-            })
-        
-        raise HTTPException(status_code=422, detail={
-            "message": "Pydantic Validation failed",
-            "errors": error_details
-        })
-        
+            error_details.append(
+                {
+                    "field": ".".join(map(str, error_detail["loc"]))
+                    if error_detail["loc"]
+                    else "General",
+                    "message": error_detail["msg"],
+                    "input": str(error_detail["input"]),
+                }
+            )
+
+        raise HTTPException(
+            status_code=422,
+            detail={"message": "Pydantic Validation failed", "errors": error_details},
+        )
+
     except Exception as e:
         logger.error(f"An unexpected error occurred: {e}")
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"An unexpected error occurred: {str(e)}"
+        )
 
 
 @app.get("/")
 async def root():
     """
     API health check and information endpoint.
-    
+
     Returns basic information about the Berlinger Fridge-tag API service
     and confirms that it's running and ready to process temperature monitoring files.
-    
+
     Returns:
         dict: API status message and service information
     """
@@ -176,10 +182,11 @@ async def root():
         "message": "Berlinger Fridge Tag API is running",
         "service": "Temperature monitoring data parser for DHIS2 cold chain integration",
         "supported_devices": ["Fridge-tag 2", "Fridge-tag 2L", "Fridge-tag 2E"],
-        "version": "0.1.0"
+        "version": "0.1.0",
     }
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

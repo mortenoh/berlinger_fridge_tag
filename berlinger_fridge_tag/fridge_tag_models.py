@@ -98,7 +98,7 @@ class AlarmEntryInput(BaseModel):
                 formatted_time = f"{hours:02d}:{minutes:02d}"
             except (ValueError, TypeError):
                 formatted_time = self.t_Acc  # Keep original if conversion fails
-        
+
         return AlarmEntryOutput(
             accumulatedTime=formatted_time,
             alarmTimestamp=self.TS_A,
