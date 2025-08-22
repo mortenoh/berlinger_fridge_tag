@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile using Python UV base image
 # Stage 1: Build dependencies and install packages
-FROM ghcr.io/astral-sh/uv:python3.13-slim AS builder
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
 # Set working directory
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 
 # Stage 2: Runtime image
-FROM ghcr.io/astral-sh/uv:python3.13-slim AS runtime
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
 
 # Set working directory
 WORKDIR /app
