@@ -1,9 +1,9 @@
 # Berlinger Fridge-tag Parser
 
-[![Tests](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/test.yml/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/test.yml)
-[![Lint](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/lint.yml/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/lint.yml)
-[![Docker Build](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/docker.yml/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/docker.yml)
-[![codecov](https://codecov.io/gh/morteoh/berlinger_fridge_tag/branch/main/graph/badge.svg)](https://codecov.io/gh/morteoh/berlinger_fridge_tag)
+[![Tests](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/test.yml/badge.svg)](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/test.yml)
+[![Lint](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/lint.yml/badge.svg)](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/lint.yml)
+[![Docker Build](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/docker.yml/badge.svg)](https://github.com/mortenoh/berlinger_fridge_tag/actions/workflows/docker.yml)
+[![codecov](https://codecov.io/gh/mortenoh/berlinger_fridge_tag/branch/main/graph/badge.svg)](https://codecov.io/gh/mortenoh/berlinger_fridge_tag)
 
 ## What This Project Does
 
