@@ -1,0 +1,2 @@
+Device: Invalid Device
+Invalid content that should fail parsing

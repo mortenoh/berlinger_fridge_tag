@@ -88,8 +88,19 @@ class AlarmEntryInput(BaseModel):
         return data
 
     def to_output(self) -> AlarmEntryOutput:
+        # Convert accumulated time from minutes to hh:mm format
+        formatted_time = None
+        if self.t_Acc is not None:
+            try:
+                total_minutes = int(self.t_Acc)
+                hours = total_minutes // 60
+                minutes = total_minutes % 60
+                formatted_time = f"{hours:02d}:{minutes:02d}"
+            except (ValueError, TypeError):
+                formatted_time = self.t_Acc  # Keep original if conversion fails
+        
         return AlarmEntryOutput(
-            accumulatedTime=self.t_Acc,
+            accumulatedTime=formatted_time,
             alarmTimestamp=self.TS_A,
             alarmCount=self.C_A,
         )
@@ -361,7 +372,7 @@ class OutputBaseModel(BaseModel):
 
 
 class AlarmEntryOutput(OutputBaseModel):
-    accumulatedTime: Optional[int] = None  # Assuming seconds
+    accumulatedTime: Optional[str] = None  # Formatted as hh:mm
     alarmTimestamp: Optional[str] = None
     alarmCount: Optional[int] = None  # Or consecutiveAlarmPeriods
 
