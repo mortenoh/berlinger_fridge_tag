@@ -4,7 +4,6 @@ Simple script to run the FastAPI server for the Berlinger Fridge Tag API.
 """
 
 import uvicorn
-from api import app
 
 if __name__ == "__main__":
     print("Starting Berlinger Fridge Tag API server...")
