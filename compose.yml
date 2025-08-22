@@ -1,0 +1,16 @@
+services:
+  berlinger-fridge-tag:
+    image: ghcr.io/mortenoh/berlinger_fridge_tag:main
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

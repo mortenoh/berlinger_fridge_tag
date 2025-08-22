@@ -3,11 +3,11 @@ name = "berlinger-fridge-tag"
 version = "0.1.0"
 description = "Python library and API for parsing Berlinger Fridge-tag temperature monitoring data files and integrating with DHIS2 cold chain monitoring systems"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "loguru>=0.7.3",
     "pydantic>=2.11.7",
-    "fastapi>=0.104.0",
+    "fastapi[standard]>=0.104.0",
     "python-multipart>=0.0.6",
     "uvicorn>=0.24.0",
     "httpx>=0.25.0",
