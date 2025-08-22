@@ -1,5 +1,10 @@
 # Berlinger Fridge-tag Parser
 
+[![Tests](https://github.com/morteoh/berlinger_fridge_tag/workflows/Tests/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/test.yml)
+[![Lint](https://github.com/morteoh/berlinger_fridge_tag/workflows/Lint/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/lint.yml)
+[![Docker Build](https://github.com/morteoh/berlinger_fridge_tag/workflows/Docker%20Build/badge.svg)](https://github.com/morteoh/berlinger_fridge_tag/actions/workflows/docker.yml)
+[![codecov](https://codecov.io/gh/morteoh/berlinger_fridge_tag/branch/main/graph/badge.svg)](https://codecov.io/gh/morteoh/berlinger_fridge_tag)
+
 ## What This Project Does
 
 This Python library parses data files exported from Berlinger Fridge-tag temperature monitoring devices and converts them into structured JSON format. The parsed data can be integrated with DHIS2 (District Health Information System 2) for comprehensive cold chain monitoring in healthcare facilities.
@@ -191,7 +196,7 @@ Supports Berlinger Fridge-tag text export files from:
 
 ## Requirements
 
-- Python 3.13+
+- Python 3.12+
 - FastAPI for REST API
 - Pydantic for data validation
 - Loguru for logging
