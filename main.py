@@ -7,8 +7,8 @@ from pathlib import Path
 from loguru import logger
 from pydantic import ValidationError
 
-from berlinger.fridge_tag import parse_fridgetag_text_to_raw_dict
-from berlinger.fridge_tag_models import HistoryRecordInput, QTagDataInput
+from berlinger_fridge_tag.fridge_tag import parse_fridgetag_text_to_raw_dict
+from berlinger_fridge_tag.fridge_tag_models import HistoryRecordInput, QTagDataInput
 
 
 def setup_logging(debug_mode: bool = False):
