@@ -110,7 +110,7 @@ async def parse_fridgetag_file(file: UploadFile = File(...), debug: bool = False
     """
     Upload and parse a Berlinger Fridge-tag temperature monitoring data file.
     
-    Accepts a Fridge-tag TXT export file and processes it into structured JSON format
+    Accepts a Fridge-tag export file and processes it into structured JSON format
     suitable for integration with DHIS2 cold chain monitoring systems.
     
     Supported Fridge-tag models:
@@ -119,7 +119,7 @@ async def parse_fridgetag_file(file: UploadFile = File(...), debug: bool = False
     - Fridge-tag 2E: 30-day electronic temperature recorder for vaccines
     
     Args:
-        file: Uploaded Fridge-tag text file (must have .txt extension)
+        file: Uploaded Fridge-tag text file
         debug: Enable detailed validation logging and error reporting
         
     Returns:
@@ -127,12 +127,10 @@ async def parse_fridgetag_file(file: UploadFile = File(...), debug: bool = False
                      alarm events, and configuration details
         
     Raises:
-        HTTPException 400: If file is not a .txt file
+        HTTPException 422: If file content doesn't match expected format
         HTTPException 422: If file content fails validation
         HTTPException 500: If unexpected processing error occurs
     """
-    if not file.filename.endswith('.txt'):
-        raise HTTPException(status_code=400, detail="File must be a .txt file")
     
     try:
         file_content = await file.read()

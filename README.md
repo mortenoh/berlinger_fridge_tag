@@ -33,9 +33,6 @@ Berlinger Fridge-tag devices are intelligent temperature monitors specifically d
 ```bash
 # Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -r requirements.txt
 ```
 
 ## Running with Command Line Interface (CLI)
@@ -48,13 +45,13 @@ pip install -r requirements.txt
 ### Step 2: Process the File
 ```bash
 # Basic processing
-python cli.py process-file path/to/your/fridgetag_data.txt
+uv run cli.py process-file path/to/your/fridgetag_data.txt
 
 # With debug output for detailed logging
-python cli.py process-file path/to/your/fridgetag_data.txt --debug
+uv run cli.py process-file path/to/your/fridgetag_data.txt --debug
 
 # Example with the provided sample file
-python cli.py process-file data/160400343951_202506111034_20250611T083422Z.txt
+uv run cli.py process-file data/160400343951_202506111034_20250611T083422Z.txt
 ```
 
 ### Step 3: Review Output
@@ -68,13 +65,10 @@ The CLI will:
 
 ### Step 1: Start the API Server
 ```bash
-# Option 1: Using the run script
-python run_api.py
+# Option 1: Using uv (recommended)
+uv run run_api.py
 
-# Option 2: Using uv
-uv run python run_api.py
-
-# Option 3: Direct uvicorn command
+# Option 2: Direct uvicorn command
 uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
@@ -167,10 +161,25 @@ structured_data = output_model.model_dump(exclude_none=True)
 
 ```bash
 # Run tests
-python -m pytest tests/ -v
+uv run pytest tests/ -v
 
 # Run with coverage
-python -m pytest tests/ -v --cov=berlinger_fridge_tag
+uv run pytest tests/ -v --cov=berlinger_fridge_tag
+```
+
+## Code Formatting
+
+This project uses ruff for code formatting with a line width of 120 characters:
+
+```bash
+# Format code
+uv run ruff format
+
+# Check formatting
+uv run ruff format --check
+
+# Run linting
+uv run ruff check
 ```
 
 ## File Format Support
