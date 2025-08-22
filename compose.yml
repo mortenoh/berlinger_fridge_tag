@@ -1,6 +1,6 @@
 services:
   berlinger-fridge-tag:
-    image: ghcr.io/mortenoh/berlinger_fridge_tag:main
+    image: berlinger-fridge-tag:latest
     ports:
       - "8000:8000"
     environment:
